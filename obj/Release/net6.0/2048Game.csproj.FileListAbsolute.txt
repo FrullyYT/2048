@@ -1,0 +1,5 @@
+C:\Users\giuli\source\repos\2048Game\obj\Release\net6.0\2048Game.csproj.AssemblyReference.cache
+C:\Users\giuli\source\repos\2048Game\obj\Release\net6.0\2048Game.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\giuli\source\repos\2048Game\obj\Release\net6.0\2048Game.AssemblyInfoInputs.cache
+C:\Users\giuli\source\repos\2048Game\obj\Release\net6.0\2048Game.AssemblyInfo.cs
+C:\Users\giuli\source\repos\2048Game\obj\Release\net6.0\2048Game.csproj.CoreCompileInputs.cache
