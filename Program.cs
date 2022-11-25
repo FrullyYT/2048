@@ -127,6 +127,8 @@
             {
                 Console.WriteLine("");
             }
+
+            Console.Clear();
             
             Console.WriteLine($"punteggio = {punteggio}");
             Console.WriteLine($"╔══════╦══════╦══════╦══════╗");
