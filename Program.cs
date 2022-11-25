@@ -8,13 +8,13 @@
             int[,] tabellone = tabellaIniziale();
             bool tastoGiusto = true;
 
-            while (mossePossibili(tabellone) || !vinto(punteggio))
+            while(true)
             {
                 scriveTabella(tabellone, punteggio);
 
                 do
                 {
-                    tastoGiusto= true;
+                    tastoGiusto = true;
                     //legge un tasto
                     ConsoleKeyInfo tasto = Console.ReadKey();
 
@@ -38,8 +38,15 @@
                             break;
                     }
                 } while (!tastoGiusto);
-            }
+                if (!mossePossibili(tabellone))
+                {
+                    scriveTabella(tabellone, punteggio);
+                    break;
+                }
+            }// while (!mossePossibili(tabellone) || !vinto(punteggio));
+
             Console.WriteLine("fine");
+            Console.ReadLine();
         }
 
         static int[,] tabellaIniziale()
@@ -57,8 +64,24 @@
                     tabellone[i, e] = 0;
                 }
             }
+            tabellone[0, 0] = 2;
+            tabellone[0, 1] = 2;
+            tabellone[0, 2] = 16;
+            tabellone[0, 3] = 2;
 
-            //mette i primi 2 numeri iniziali, 2 o 4 con 1/10 di possibilità
+            tabellone[1, 1] = 8;
+            tabellone[1, 2] = 64;
+            tabellone[1, 3] = 4;
+
+            tabellone[2, 0] = 2;
+            tabellone[2, 1] = 8;
+            tabellone[2, 2] = 16;
+            tabellone[2, 3] = 8;
+
+            tabellone[3, 1] = 16;
+            tabellone[3, 2] = 4;
+            tabellone[3, 3] = 2;
+            /*mette i primi 2 numeri iniziali, 2 o 4 con 1/10 di possibilità
             while (contatore != 2)
             {
                 int dim1 = rnd.Next(0, 4);
@@ -75,7 +98,7 @@
                     }
                     contatore++;
                 }
-            }
+            }*/
 
             return tabellone;
         }
@@ -123,11 +146,6 @@
                     }
                 }
             }
-            for (int i = 0; i < 11; i++)
-            {
-                Console.WriteLine("");
-            }
-
             Console.Clear();
             
             Console.WriteLine($"punteggio = {punteggio}");
@@ -196,7 +214,15 @@
 
         static int[,] sinistra(int[,] tabella, ref int punteggio)
         {
-            int[,] tabellone = tabella;
+            int[,] tabellone = new int[4, 4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int e = 0; e < 4; e++)
+                {
+                    tabellone[i, e] = tabella[i, e];
+                }
+            }
 
             //sposta
             for (int a = 0; a < 4; a++)
@@ -252,7 +278,7 @@
                 }
             }
 
-            if (tabellone == tabella)
+            if (!matriciUguali(tabellone, tabella))
             {
                 tabellone = aggiungiNumero(tabellone);
             }
@@ -262,8 +288,17 @@
 
         static int[,] su(int[,] tabella, ref int punteggio)
         {
-            int[,] tabellone = tabella;
 
+            int[,] tabellone = new int[4, 4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int e = 0; e < 4; e++)
+                {
+                    tabellone[i, e] = tabella[i, e];
+                }
+            }
+            
             //sposta
             for (int a = 0; a < 4; a++)
             {
@@ -318,7 +353,7 @@
                 }
             }
 
-            if (tabellone == tabella)
+            if (!matriciUguali(tabellone, tabella))
             {
                 tabellone = aggiungiNumero(tabellone);
             }
@@ -328,7 +363,15 @@
 
         static int[,] destra(int[,] tabella, ref int punteggio)
         {
-            int[,] tabellone = tabella;
+            int[,] tabellone = new int[4, 4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int e = 0; e < 4; e++)
+                {
+                    tabellone[i, e] = tabella[i, e];
+                }
+            }
 
             //sposta
             for (int a = 0; a < 4; a++)
@@ -384,7 +427,7 @@
                 }
             }
 
-            if (tabellone == tabella)
+            if (!matriciUguali(tabellone, tabella))
             {
                 tabellone = aggiungiNumero(tabellone);
             }
@@ -394,7 +437,15 @@
 
         static int[,] giu(int[,] tabella, ref int punteggio)
         {
-            int[,] tabellone = tabella;
+            int[,] tabellone = new int[4, 4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int e = 0; e < 4; e++)
+                {
+                    tabellone[i, e] = tabella[i, e];
+                }
+            }
 
             //sposta
             for (int a = 0; a < 4; a++)
@@ -450,7 +501,7 @@
                 }
             }
 
-            if (tabellone == tabella)
+            if (!matriciUguali(tabellone, tabella))
             {
                 tabellone = aggiungiNumero(tabellone);
             }
@@ -481,6 +532,22 @@
                 }
             }
             return tabellone;
+        }
+
+        static bool matriciUguali(int[,] tabellone, int[,] tabella)
+        {
+            bool uguali = true;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int e = 0; e < 4; e++)
+                {
+                    if (tabellone[i, e] != tabella[i, e])
+                    {
+                        uguali = false;
+                    }
+                }
+            }
+            return uguali;
         }
     }
 }
