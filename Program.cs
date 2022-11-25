@@ -88,6 +88,7 @@
 
             if (siNo == 's')
             {
+                Console.Clear();
                 gioco();
             }
             else
