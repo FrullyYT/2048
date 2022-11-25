@@ -10,7 +10,7 @@
 
             while(true)
             {
-                scriveTabella(tabellone, punteggio);
+                scriveTabella(tabellone, punteggio);//bdhsfivbsjhu
 
                 do
                 {

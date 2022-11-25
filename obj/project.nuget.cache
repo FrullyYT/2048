@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1NNM+iE+euf5+8hfBkDkqmbdUrYqXz8PDeiaVR7CGcajq3bTc3eiw6dab7wEiEhBB0j8w/6Onfv+R64RUNYUJQ==",
+  "dgSpecHash": "rJWOiAeX64JhSro7Bz3nql1wSx/BdKZqkOmv2GuSEXmem5BSi62kyp5HNF2Z8aBuDDjdrjURtjCbFNhVokBTfQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\giuli\\source\\repos\\2048Game\\2048Game.csproj",
+  "projectFilePath": "C:\\Users\\giuli\\Desktop\\2048\\2048Game.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

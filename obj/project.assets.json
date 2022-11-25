@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\giuli\\source\\repos\\2048Game\\2048Game.csproj",
+      "projectUniqueName": "C:\\Users\\giuli\\Desktop\\2048\\2048Game.csproj",
       "projectName": "2048Game",
-      "projectPath": "C:\\Users\\giuli\\source\\repos\\2048Game\\2048Game.csproj",
+      "projectPath": "C:\\Users\\giuli\\Desktop\\2048\\2048Game.csproj",
       "packagesPath": "C:\\Users\\giuli\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\giuli\\source\\repos\\2048Game\\obj\\",
+      "outputPath": "C:\\Users\\giuli\\Desktop\\2048\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\giuli\\AppData\\Roaming\\NuGet\\NuGet.Config",
