@@ -4,9 +4,18 @@
     {
         static void Main(string[] args)
         {
+            Console.CursorVisible= false;
+            Console.WindowWidth = 29;
+            Console.WindowHeight = 18;
+            gioco();
+        }
+
+        static void gioco()
+        {
             int punteggio = 0;
             int[,] tabellone = tabellaIniziale();
             bool tastoGiusto = true;
+            bool ok;
 
             while(true)
             {
@@ -38,15 +47,53 @@
                             break;
                     }
                 } while (!tastoGiusto);
+
                 if (!mossePossibili(tabellone))
                 {
-                    scriveTabella(tabellone, punteggio);
                     break;
                 }
-            }// while (!mossePossibili(tabellone) || !vinto(punteggio));
+            } // while (!mossePossibili(tabellone) || !vinto(punteggio));
 
-            Console.WriteLine("fine");
-            Console.ReadLine();
+            scriveTabella(tabellone, punteggio);
+
+            if (!mossePossibili(tabellone))
+            {
+                Console.WriteLine("Hai perso");
+            }
+            else
+            {
+                Console.WriteLine("Hai vinto!!!");
+            }
+
+            char siNo;
+
+            do
+            {
+                Console.WriteLine("vuoi rigiocare? (s/n) ");
+                siNo = Console.ReadKey(true).KeyChar;
+            } while (siNo != 's' && siNo != 'n');
+
+            switch (siNo)
+            {
+                case 's':
+                    gioco();
+                    break;
+                case 'n':
+                    Console.WriteLine("chiusura in corso...");
+                    break;
+                default:
+                    break;
+            }
+            
+
+            if (siNo == 's')
+            {
+                gioco();
+            }
+            else
+            {
+                Console.WriteLine("Chiusura in corso...");
+            }
         }
 
         static int[,] tabellaIniziale()
@@ -147,7 +194,7 @@
                 }
             }
             Console.Clear();
-            
+            //altezza 16 larghezza 19 (altezza + fine/rigiocare ? )
             Console.WriteLine($"punteggio = {punteggio}");
             Console.WriteLine($"╔══════╦══════╦══════╦══════╗");
             Console.WriteLine($"║      ║      ║      ║      ║");
