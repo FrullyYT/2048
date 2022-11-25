@@ -64,7 +64,7 @@
                     tabellone[i, e] = 0;
                 }
             }
-            tabellone[0, 0] = 2;
+            /*tabellone[0, 0] = 2;
             tabellone[0, 1] = 2;
             tabellone[0, 2] = 16;
             tabellone[0, 3] = 2;
@@ -80,8 +80,8 @@
 
             tabellone[3, 1] = 16;
             tabellone[3, 2] = 4;
-            tabellone[3, 3] = 2;
-            /*mette i primi 2 numeri iniziali, 2 o 4 con 1/10 di possibilità
+            tabellone[3, 3] = 2;*/
+            //mette i primi 2 numeri iniziali, 2 o 4 con 1/10 di possibilità
             while (contatore != 2)
             {
                 int dim1 = rnd.Next(0, 4);
@@ -98,7 +98,7 @@
                     }
                     contatore++;
                 }
-            }*/
+            }
 
             return tabellone;
         }
@@ -171,6 +171,17 @@
         static bool mossePossibili(int[,] tabellone)
         {
             bool mossePossibili = false;
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int e = 0; e < 4; e++)
+                {
+                    if (tabellone[i, e] == 0)
+                    {
+                        mossePossibili = true;
+                    }
+                }
+            }
 
             for (int i = 0; i < 4; i++)
             {
