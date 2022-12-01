@@ -7,6 +7,7 @@
             Console.CursorVisible= false;
             Console.WindowWidth = 29;
             Console.WindowHeight = 18;
+            Console.BackgroundColor = ConsoleColor.Black;
             gioco();
         }
 
@@ -151,6 +152,42 @@
             return tabellone;
         }
 
+        static void stampaNumeroColorato(string casella, int valore)
+        {
+            switch (valore)
+            {
+                case 2:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                case 4:
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    break;
+                case 8:
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    break;
+                case 16:
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    break;
+                case 32:
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    break;
+                case 64:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    break;
+                case 128:
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    break;
+                case 256:
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    break;
+            }
+            Console.Write(casella);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         static void scriveTabella(int[,] tabellone, int punteggio)
         {
             string[,] tabellaStringhe = new string[4, 4];
@@ -199,19 +236,59 @@
             Console.WriteLine($"punteggio = {punteggio}");
             Console.WriteLine($"╔══════╦══════╦══════╦══════╗");
             Console.WriteLine($"║      ║      ║      ║      ║");
-            Console.WriteLine($"║{tabellaStringhe[0, 0]}║{tabellaStringhe[0, 1]}║{tabellaStringhe[0, 2]}║{tabellaStringhe[0, 3]}║");
+
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[0, 0], tabellone[0, 0]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[0, 1], tabellone[0, 1]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[0, 2], tabellone[0, 2]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[0, 3], tabellone[0, 3]);
+            Console.WriteLine("║");
+
             Console.WriteLine($"║      ║      ║      ║      ║");
             Console.WriteLine($"╠══════╬══════╬══════╬══════╣");
             Console.WriteLine($"║      ║      ║      ║      ║");
-            Console.WriteLine($"║{tabellaStringhe[1, 0]}║{tabellaStringhe[1, 1]}║{tabellaStringhe[1, 2]}║{tabellaStringhe[1, 3]}║");
+
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[1, 0], tabellone[1, 0]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[1, 1], tabellone[1, 1]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[1, 2], tabellone[1, 2]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[1, 3], tabellone[1, 3]);
+            Console.WriteLine("║");
+
             Console.WriteLine($"║      ║      ║      ║      ║");
             Console.WriteLine($"╠══════╬══════╬══════╬══════╣");
             Console.WriteLine($"║      ║      ║      ║      ║");
-            Console.WriteLine($"║{tabellaStringhe[2, 0]}║{tabellaStringhe[2, 1]}║{tabellaStringhe[2, 2]}║{tabellaStringhe[2, 3]}║");
+
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[2, 0], tabellone[2, 0]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[2, 1], tabellone[2, 1]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[2, 2], tabellone[2, 2]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[2, 3], tabellone[2, 3]);
+            Console.WriteLine("║");
+
             Console.WriteLine($"║      ║      ║      ║      ║");
             Console.WriteLine($"╠══════╬══════╬══════╬══════╣");
             Console.WriteLine($"║      ║      ║      ║      ║");
-            Console.WriteLine($"║{tabellaStringhe[3, 0]}║{tabellaStringhe[3, 1]}║{tabellaStringhe[3, 2]}║{tabellaStringhe[3, 3]}║");
+
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[3, 0], tabellone[3, 0]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[3, 1], tabellone[3, 1]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[3, 2], tabellone[3, 2]);
+            Console.Write("║");
+            stampaNumeroColorato(tabellaStringhe[3, 3], tabellone[3, 3]);
+            Console.WriteLine("║");
+
             Console.WriteLine($"║      ║      ║      ║      ║");
             Console.WriteLine($"╚══════╩══════╩══════╩══════╝");
         }
