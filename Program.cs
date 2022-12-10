@@ -6,9 +6,19 @@
         {
             Console.CursorVisible= false;
             Console.WindowWidth = 29;
-            Console.WindowHeight = 18;
+            Console.WindowHeight = 19;
             Console.BackgroundColor = ConsoleColor.Black;
+
+            welcomeScreen();
+
             gioco();
+        }
+
+        static void welcomeScreen()
+        {
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.Clear();
         }
 
         static void gioco()
@@ -59,18 +69,18 @@
 
             if (!mossePossibili(tabellone))
             {
-                Console.WriteLine("Hai perso");
+                Console.Write("Hai perso");
             }
             else
             {
-                Console.WriteLine("Hai vinto!!!");
+                Console.Write("Hai vinto!!!");
             }
 
             char siNo;
 
+            Console.Write(". rigiocare? (s/n) ");
             do
             {
-                Console.WriteLine("vuoi rigiocare? (s/n) ");
                 siNo = Console.ReadKey(true).KeyChar;
             } while (siNo != 's' && siNo != 'n');
 
@@ -80,21 +90,11 @@
                     gioco();
                     break;
                 case 'n':
+                    Console.Clear();
                     Console.WriteLine("chiusura in corso...");
                     break;
                 default:
                     break;
-            }
-            
-
-            if (siNo == 's')
-            {
-                Console.Clear();
-                gioco();
-            }
-            else
-            {
-                Console.WriteLine("Chiusura in corso...");
             }
         }
 
