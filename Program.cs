@@ -16,7 +16,13 @@
 
         static void welcomeScreen()
         {
-            Console.WriteLine();
+            Console.WriteLine(@"  _____ _____ __ __ _____ ");
+            Console.WriteLine(@" |     |  _  |  Y  |  _  |");
+            Console.WriteLine(@" |__|  |. |  |  |  |. |  |");
+            Console.WriteLine(@"  / __/|. |  |___  |. _  |");
+            Console.WriteLine(@" |: 1 \|: 1  |  |: |: 1  |");
+            Console.WriteLine(@" |:..  |:..  |  |:.|:..  |");
+            Console.WriteLine(@" `-----`-----'  `--`-----'");
             Thread.Sleep(1000);
             Console.Clear();
         }
