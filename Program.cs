@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            Console.Title = "2048";
             Console.CursorVisible= false;
             Console.WindowWidth = 29;
             Console.WindowHeight = 19;
