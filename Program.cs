@@ -45,25 +45,8 @@
                     //legge un tasto
                     ConsoleKeyInfo tasto = Console.ReadKey();
 
-                    switch (tasto.Key)
-                    {
-                        case ConsoleKey.LeftArrow:
-                            tabellone = sinistra(tabellone, ref punteggio);
-                            break;
-                        case ConsoleKey.UpArrow:
-                            tabellone = su(tabellone, ref punteggio);
-                            break;
-                        case ConsoleKey.RightArrow:
-                            tabellone = destra(tabellone, ref punteggio);
-                            break;
-                        case ConsoleKey.DownArrow:
-                            tabellone = giu(tabellone, ref punteggio);
-                            break;
+                    muoviTabella(ref tabellone, ref punteggio, tasto, ref tastoGiusto);
 
-                        default:
-                            tastoGiusto = false;
-                            break;
-                    }
                 } while (!tastoGiusto);
 
                 if (!mossePossibili(tabellone))
@@ -120,23 +103,7 @@
                     tabellone[i, e] = 0;
                 }
             }
-            /*tabellone[0, 0] = 2;
-            tabellone[0, 1] = 2;
-            tabellone[0, 2] = 16;
-            tabellone[0, 3] = 2;
 
-            tabellone[1, 1] = 8;
-            tabellone[1, 2] = 64;
-            tabellone[1, 3] = 4;
-
-            tabellone[2, 0] = 2;
-            tabellone[2, 1] = 8;
-            tabellone[2, 2] = 16;
-            tabellone[2, 3] = 8;
-
-            tabellone[3, 1] = 16;
-            tabellone[3, 2] = 4;
-            tabellone[3, 3] = 2;*/
             //mette i primi 2 numeri iniziali, 2 o 4 con 1/10 di possibilità
             while (contatore != 2)
             {
@@ -355,301 +322,265 @@
             return vinto;
         }
 
-        static int[,] sinistra(int[,] tabella, ref int punteggio)
+        static void muoviTabella(ref int[,] tabellone, ref int punteggio, ConsoleKeyInfo tasto, ref bool tastoOk)
         {
-            int[,] tabellone = new int[4, 4];
+            int[,] tabella = new int[4, 4];
 
             for (int i = 0; i < 4; i++)
             {
                 for (int e = 0; e < 4; e++)
                 {
-                    tabellone[i, e] = tabella[i, e];
+                    tabella[i, e] = tabellone[i, e];
                 }
             }
 
-            //sposta
-            for (int a = 0; a < 4; a++)
+            switch (tasto.Key)
             {
-                for (int i = 0; i < 4; i++)
-                {
+                case ConsoleKey.LeftArrow:
+                    //sposta
+                    for (int a = 0; a < 4; a++)
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            for (int e = 0; e < 4; e++)
+                            {
+                                if (e != 0)
+                                {
+                                    if (tabellone[i, e - 1] == 0)
+                                    {
+                                        tabellone[i, e - 1] = tabellone[i, e];
+                                        tabellone[i, e] = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //comprimi
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int e = 0; e < 4; e++)
+                        {
+                            if (e != 3)
+                            {
+                                if (tabellone[i, e] == tabellone[i, e + 1])
+                                {
+                                    tabellone[i, e] = tabellone[i, e] + tabellone[i, e + 1];
+                                    tabellone[i, e + 1] = 0;
+
+                                    punteggio += tabellone[i, e];
+                                }
+                            }
+                        }
+                    }
+                    //sposta
+                    for (int a = 0; a < 4; a++)
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            for (int e = 0; e < 4; e++)
+                            {
+                                if (e != 0)
+                                {
+                                    if (tabellone[i, e - 1] == 0)
+                                    {
+                                        tabellone[i, e - 1] = tabellone[i, e];
+                                        tabellone[i, e] = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (!matriciUguali(tabellone, tabella))
+                    {
+                        tabellone = aggiungiNumero(tabellone);
+                    }
+                    break;
+                case ConsoleKey.UpArrow:
+                    //sposta
+                    for (int a = 0; a < 4; a++)
+                    {
+                        for (int e = 0; e < 4; e++)
+                        {
+                            for (int i = 0; i < 4; i++)
+                            {
+                                if (i != 0)
+                                {
+                                    if (tabellone[i - 1, e] == 0)
+                                    {
+                                        tabellone[i - 1, e] = tabellone[i, e];
+                                        tabellone[i, e] = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //comprimi
                     for (int e = 0; e < 4; e++)
                     {
-                        if (e != 0)
+                        for (int i = 0; i < 4; i++)
                         {
-                            if (tabellone[i, e - 1] == 0)
+                            if (i != 3)
                             {
-                                tabellone[i, e - 1] = tabellone[i, e];
-                                tabellone[i, e] = 0;
+                                if (tabellone[i, e] == tabellone[i + 1, e])
+                                {
+                                    tabellone[i, e] = tabellone[i, e] + tabellone[i + 1, e];
+                                    tabellone[i + 1, e] = 0;
+
+                                    punteggio += tabellone[i, e];
+                                }
                             }
                         }
                     }
-                }
-            }
-            //comprimi
-            for (int i = 0; i < 4; i++)
-            {
-                for (int e = 0; e < 4; e++)
-                {
-                    if (e != 3)
+                    //sposta
+                    for (int a = 0; a < 4; a++)
                     {
-                        if (tabellone[i, e] == tabellone[i, e + 1])
+                        for (int e = 0; e < 4; e++)
                         {
-                            tabellone[i, e] = tabellone[i, e] + tabellone[i, e + 1];
-                            tabellone[i, e + 1] = 0;
-
-                            punteggio += tabellone[i, e];
+                            for (int i = 0; i < 4; i++)
+                            {
+                                if (i != 0)
+                                {
+                                    if (tabellone[i - 1, e] == 0)
+                                    {
+                                        tabellone[i - 1, e] = tabellone[i, e];
+                                        tabellone[i, e] = 0;
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-            }
-            //sposta
-            for (int a = 0; a < 4; a++)
-            {
-                for (int i = 0; i < 4; i++)
-                {
+
+                    if (!matriciUguali(tabellone, tabella))
+                    {
+                        tabellone = aggiungiNumero(tabellone);
+                    }
+                    break;
+                case ConsoleKey.RightArrow:
+                    //sposta
+                    for (int a = 0; a < 4; a++)
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            for (int e = 3; e >= 0; e--)
+                            {
+                                if (e != 3)
+                                {
+                                    if (tabellone[i, e + 1] == 0)
+                                    {
+                                        tabellone[i, e + 1] = tabellone[i, e];
+                                        tabellone[i, e] = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //comprimi
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int e = 0; e < 4; e++)
+                        {
+                            if (e != 0)
+                            {
+                                if (tabellone[i, e] == tabellone[i, e - 1])
+                                {
+                                    tabellone[i, e] = tabellone[i, e] + tabellone[i, e - 1];
+                                    tabellone[i, e - 1] = 0;
+
+                                    punteggio += tabellone[i, e];
+                                }
+                            }
+                        }
+                    }
+                    //sposta
+                    for (int a = 0; a < 4; a++)
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            for (int e = 3; e >= 0; e--)
+                            {
+                                if (e != 3)
+                                {
+                                    if (tabellone[i, e + 1] == 0)
+                                    {
+                                        tabellone[i, e + 1] = tabellone[i, e];
+                                        tabellone[i, e] = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (!matriciUguali(tabellone, tabella))
+                    {
+                        tabellone = aggiungiNumero(tabellone);
+                    }
+                    break;
+                case ConsoleKey.DownArrow:
+                    //sposta
+                    for (int a = 0; a < 4; a++)
+                    {
+                        for (int e = 0; e < 4; e++)
+                        {
+                            for (int i = 0; i < 4; i++)
+                            {
+                                if (i != 3)
+                                {
+                                    if (tabellone[i + 1, e] == 0)
+                                    {
+                                        tabellone[i + 1, e] = tabellone[i, e];
+                                        tabellone[i, e] = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //comprimi
                     for (int e = 0; e < 4; e++)
                     {
-                        if (e != 0)
+                        for (int i = 0; i < 4; i++)
                         {
-                            if (tabellone[i, e - 1] == 0)
+                            if (i != 0)
                             {
-                                tabellone[i, e - 1] = tabellone[i, e];
-                                tabellone[i, e] = 0;
+                                if (tabellone[i, e] == tabellone[i - 1, e])
+                                {
+                                    tabellone[i, e] = tabellone[i, e] + tabellone[i - 1, e];
+                                    tabellone[i - 1, e] = 0;
+
+                                    punteggio += tabellone[i, e];
+                                }
                             }
                         }
                     }
-                }
-            }
-
-            if (!matriciUguali(tabellone, tabella))
-            {
-                tabellone = aggiungiNumero(tabellone);
-            }
-
-            return tabellone;
-        }
-
-        static int[,] su(int[,] tabella, ref int punteggio)
-        {
-
-            int[,] tabellone = new int[4, 4];
-
-            for (int i = 0; i < 4; i++)
-            {
-                for (int e = 0; e < 4; e++)
-                {
-                    tabellone[i, e] = tabella[i, e];
-                }
-            }
-            
-            //sposta
-            for (int a = 0; a < 4; a++)
-            {
-                for (int e = 0; e < 4; e++)
-                {
-                    for (int i = 0; i < 4; i++)
+                    //sposta
+                    for (int a = 0; a < 4; a++)
                     {
-                        if (i != 0)
+                        for (int e = 0; e < 4; e++)
                         {
-                            if (tabellone[i - 1, e] == 0)
+                            for (int i = 0; i < 4; i++)
                             {
-                                tabellone[i - 1, e] = tabellone[i, e];
-                                tabellone[i, e] = 0;
+                                if (i != 3)
+                                {
+                                    if (tabellone[i + 1, e] == 0)
+                                    {
+                                        tabellone[i + 1, e] = tabellone[i, e];
+                                        tabellone[i, e] = 0;
+                                    }
+                                }
                             }
                         }
                     }
-                }
-            }
-            //comprimi
-            for (int e = 0; e < 4; e++)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    if (i != 3)
+
+                    if (!matriciUguali(tabellone, tabella))
                     {
-                        if (tabellone[i, e] == tabellone[i + 1, e])
-                        {
-                            tabellone[i, e] = tabellone[i, e] + tabellone[i + 1, e];
-                            tabellone[i + 1, e] = 0;
-
-                            punteggio += tabellone[i, e];
-                        }
+                        tabellone = aggiungiNumero(tabellone);
                     }
-                }
+                    break;
+
+                default:
+                    tastoOk = false;
+                    break;
             }
-            //sposta
-            for (int a = 0; a < 4; a++)
-            {
-                for (int e = 0; e < 4; e++)
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        if (i != 0)
-                        {
-                            if (tabellone[i - 1, e] == 0)
-                            {
-                                tabellone[i - 1, e] = tabellone[i, e];
-                                tabellone[i, e] = 0;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!matriciUguali(tabellone, tabella))
-            {
-                tabellone = aggiungiNumero(tabellone);
-            }
-
-            return tabellone;
-        }
-
-        static int[,] destra(int[,] tabella, ref int punteggio)
-        {
-            int[,] tabellone = new int[4, 4];
-
-            for (int i = 0; i < 4; i++)
-            {
-                for (int e = 0; e < 4; e++)
-                {
-                    tabellone[i, e] = tabella[i, e];
-                }
-            }
-
-            //sposta
-            for (int a = 0; a < 4; a++)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int e = 3; e >= 0; e--)
-                    {
-                        if (e != 3)
-                        {
-                            if (tabellone[i, e + 1] == 0)
-                            {
-                                tabellone[i, e + 1] = tabellone[i, e];
-                                tabellone[i, e] = 0;
-                            }
-                        }
-                    }
-                }
-            }
-            //comprimi
-            for (int i = 0; i < 4; i++)
-            {
-                for (int e = 0; e < 4; e++)
-                {
-                    if (e != 0)
-                    {
-                        if (tabellone[i, e] == tabellone[i, e - 1])
-                        {
-                            tabellone[i, e] = tabellone[i, e] + tabellone[i, e - 1];
-                            tabellone[i, e - 1] = 0;
-
-                            punteggio += tabellone[i, e];
-                        }
-                    }
-                }
-            }
-            //sposta
-            for (int a = 0; a < 4; a++)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int e = 3; e >= 0; e--)
-                    {
-                        if (e != 3)
-                        {
-                            if (tabellone[i, e + 1] == 0)
-                            {
-                                tabellone[i, e + 1] = tabellone[i, e];
-                                tabellone[i, e] = 0;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!matriciUguali(tabellone, tabella))
-            {
-                tabellone = aggiungiNumero(tabellone);
-            }
-
-            return tabellone;
-        }
-
-        static int[,] giu(int[,] tabella, ref int punteggio)
-        {
-            int[,] tabellone = new int[4, 4];
-
-            for (int i = 0; i < 4; i++)
-            {
-                for (int e = 0; e < 4; e++)
-                {
-                    tabellone[i, e] = tabella[i, e];
-                }
-            }
-
-            //sposta
-            for (int a = 0; a < 4; a++)
-            {
-                for (int e = 0; e < 4; e++)
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        if (i != 3)
-                        {
-                            if (tabellone[i + 1, e] == 0)
-                            {
-                                tabellone[i + 1, e] = tabellone[i, e];
-                                tabellone[i, e] = 0;
-                            }
-                        }
-                    }
-                }
-            }
-            //comprimi
-            for (int e = 0; e < 4; e++)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    if (i != 0)
-                    {
-                        if (tabellone[i, e] == tabellone[i - 1, e])
-                        {
-                            tabellone[i, e] = tabellone[i, e] + tabellone[i - 1, e];
-                            tabellone[i - 1, e] = 0;
-
-                            punteggio += tabellone[i, e];
-                        }
-                    }
-                }
-            }
-            //sposta
-            for (int a = 0; a < 4; a++)
-            {
-                for (int e = 0; e < 4; e++)
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        if (i != 3)
-                        {
-                            if (tabellone[i + 1, e] == 0)
-                            {
-                                tabellone[i + 1, e] = tabellone[i, e];
-                                tabellone[i, e] = 0;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!matriciUguali(tabellone, tabella))
-            {
-                tabellone = aggiungiNumero(tabellone);
-            }
-
-            return tabellone;
         }
 
         static int[,] aggiungiNumero(int[,] tabellone)
